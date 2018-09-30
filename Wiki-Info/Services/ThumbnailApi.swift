@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class API_Images {
+class ThumbnailApi {
 
     typealias updateImageView = (UIImage?,String, Int) -> ()
     var imageData : UIImage?

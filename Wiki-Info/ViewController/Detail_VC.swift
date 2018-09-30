@@ -33,8 +33,6 @@ func showDetail(){
     if res != nil {
         view.addSubview(webView)
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
-
     }
   }
 }

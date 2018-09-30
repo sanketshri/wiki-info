@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class API {
+class SearchApi {
     typealias updateSearchResult = (Query?,String) -> ()
 
     var resData : Query?

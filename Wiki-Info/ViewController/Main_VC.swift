@@ -10,12 +10,11 @@ import UIKit
 
 class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let apiService = API()
-    let apiImageService = API_Images()
+    let apiService = SearchApi()
+    let apiImageService = ThumbnailApi()
     var pages:[Pages]?
     var terms:Terms?
-    var selectedPagetId:Int?
-    let resultCell = Result_Cell()
+    private var selectedPagetId:Int?
 
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -26,7 +25,7 @@ class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         result_TalbleVC.rowHeight = UITableView.automaticDimension
         result_TalbleVC.estimatedRowHeight = 100
-//        result_TalbleVC.rowHeight
+        //        result_TalbleVC.rowHeight
         // Do any additional setup after loading the view, typically from a nib.
 
     }
@@ -42,16 +41,18 @@ class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if results != nil{
                 print(results as Any)
                 self.pages = results?.pages
+            } else{
+                self.showPopUp(tittle: "No Result Found", messsage: "We didn't found any search result with this keyword.", action: self.resultNotFound)
             }
             self.result_TalbleVC.reloadData()
         }
 
     }
 
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if pages != nil{
-        return (pages?.count)!
+            return (pages?.count)!
         }
         return 0
     }
@@ -65,25 +66,23 @@ class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.no_Image_Label.isHidden = false
             cell.no_Image_Label.text = "Loading..."
 
-                // call api for the given source path and set in imageview
-            API_Images().getProfileImage(pageId : pages![indexPath.row].pageid!, image_Url: ((pages?[indexPath.row].thumbnail?.source)!)) { (result_image, errorMessage, forPageId) in
+            // call api for the given source path and set in imageview
+            ThumbnailApi().getProfileImage(pageId : pages![indexPath.row].pageid!, image_Url: ((pages?[indexPath.row].thumbnail?.source)!)) { (result_image, errorMessage, forPageId) in
 
                 // check if the given cell still contains the result for the same page id for it was requested.
-                    if (result_image != nil && forPageId == self.pages![indexPath.row].pageid!) {
-                        print("loading image for pageId= \(forPageId) index= \(indexPath.row)"  )
-                        cell.imageView?.image = result_image
-                        cell.imageView?.isHidden = false
-                        cell.no_Image_Label.isHidden = true
+                if (result_image != nil && forPageId == self.pages![indexPath.row].pageid!) {
+                    print("loading image for pageId= \(forPageId) index= \(indexPath.row)"  )
+                    cell.imageView?.image = result_image
+                    cell.imageView?.isHidden = false
+                    cell.no_Image_Label.isHidden = true
 
-                    } else {
-                        //cell.imageView?.image = UIImage(named: "no-image")
-//                        cell.imageView?.image = nil
-                        cell.imageView?.isHidden = true
-                        cell.no_Image_Label.isHidden = false
-                        cell.no_Image_Label.text = "No Image Available"
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                } else {
+                    cell.imageView?.isHidden = true
+                    cell.no_Image_Label.isHidden = false
+                    cell.no_Image_Label.text = "No Image Available"
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-                    }
+                }
                 cell.setNeedsLayout() //invalidate current layout
                 cell.layoutIfNeeded() //update immediately
             }
@@ -102,6 +101,23 @@ class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         selectedPagetId = pages?[indexPath.row].pageid
         performSegue(withIdentifier: "toDetailVC", sender: self)
 
+    }
+
+
+    func showPopUp(tittle:String,messsage: String, action: @escaping (UIAlertAction) -> Void)  {
+
+        let showPopUp = UIAlertController(title: tittle, message: messsage, preferredStyle: .alert)
+
+        let Done = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: (action))
+        showPopUp.addAction(Done)
+
+        self.present(showPopUp, animated: true)
+        
+    }
+
+
+    func resultNotFound(alert:UIAlertAction!){
+        searchBar.text = ""
     }
 }
 
@@ -125,6 +141,7 @@ extension Main_VC:UISearchBarDelegate{
         pages = nil
         searchBar.text = ""
         result_TalbleVC.reloadData()
+        selectedPagetId = -1
         searchBar.resignFirstResponder()
 
     }
