@@ -28,7 +28,7 @@ func showDetail(){
     let url: URL! = URL(string:"https://en.wikipedia.org/?curid=\(pageId!)")
     print(url)
     let res = webView.load(URLRequest(url: url))
-    print(res)
+    print(res as Any)
 
     if res != nil {
         view.addSubview(webView)

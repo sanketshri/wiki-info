@@ -20,6 +20,14 @@ class SearchApi {
     func getSearchResult(searchKeyword:String,completion: @escaping updateSearchResult ) {
         dataTask?.cancel()
 
+        var cacheResponse = ResponseCacheHelper.get().readCache(searchKey: searchKeyword as NSString)
+        if cacheResponse != nil{
+            self.updateSearchResults(cacheResponse!)
+            DispatchQueue.main.async {
+                completion(self.resData, self.errorMessage)
+            }
+            return
+        }
 
         if(searchKeyword == "") {
             print("cannot proceed with empty search keyword : getSearchResult method")
@@ -50,7 +58,8 @@ class SearchApi {
                 response.statusCode == 200 {
                 // 6
                 print(response)
-                print(self.updateSearchResults(data))
+                ResponseCacheHelper.get().writeInCache(searchKey: searchKeyword, result: data)
+                self.updateSearchResults(data)
                 DispatchQueue.main.async {
                     //print(self.resData, "is the result from the getSearchResult method")
                     completion(self.resData, self.errorMessage)

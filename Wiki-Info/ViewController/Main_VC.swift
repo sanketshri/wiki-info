@@ -14,6 +14,7 @@ class Main_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let apiImageService = ThumbnailApi()
     var pages:[Pages]?
     var terms:Terms?
+    let cache = NSCache<AnyObject, AnyObject>()
     private var selectedPagetId:Int?
 
     @IBOutlet weak var searchBar: UISearchBar!

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		645798202160E07000C48F77 /* Detail_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6457981F2160E07000C48F77 /* Detail_VC.swift */; };
+		64579826216148F300C48F77 /* ResponseCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64579825216148F300C48F77 /* ResponseCacheHelper.swift */; };
 		6465540E215F9CBC00E5176B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6465540D215F9CBC00E5176B /* AppDelegate.swift */; };
 		64655410215F9CBC00E5176B /* Main_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6465540F215F9CBC00E5176B /* Main_VC.swift */; };
 		64655413215F9CBC00E5176B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64655411215F9CBC00E5176B /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		6457981F2160E07000C48F77 /* Detail_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail_VC.swift; sourceTree = "<group>"; };
+		64579825216148F300C48F77 /* ResponseCacheHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCacheHelper.swift; sourceTree = "<group>"; };
 		6465540A215F9CBC00E5176B /* Wiki-Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wiki-Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6465540D215F9CBC00E5176B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6465540F215F9CBC00E5176B /* Main_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_VC.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				64655414215F9CBF00E5176B /* Assets.xcassets */,
 				64655416215F9CBF00E5176B /* LaunchScreen.storyboard */,
 				64655419215F9CBF00E5176B /* Info.plist */,
+				64579825216148F300C48F77 /* ResponseCacheHelper.swift */,
 			);
 			path = "Wiki-Info";
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				645798202160E07000C48F77 /* Detail_VC.swift in Sources */,
 				6465542A2160174500E5176B /* Pages.swift in Sources */,
 				646554312160A96800E5176B /* ThumbnailApi.swift in Sources */,
+				64579826216148F300C48F77 /* ResponseCacheHelper.swift in Sources */,
 				646554282160172600E5176B /* Query.swift in Sources */,
 				6465542E216018AD00E5176B /* SearchApi.swift in Sources */,
 				646554262160167E00E5176B /* Continue.swift in Sources */,
